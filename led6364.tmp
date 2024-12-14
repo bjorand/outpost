@@ -1,11 +1,13 @@
-[gd_scene load_steps=14 format=3 uid="uid://brejjc7futkdn"]
+[gd_scene load_steps=20 format=3 uid="uid://brejjc7futkdn"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_mq7nw"]
 [ext_resource type="Script" path="res://MeshInstance3D.gd" id="1_ri400"]
 [ext_resource type="Script" path="res://CharacterBody3D.gd" id="2_jtq3m"]
-[ext_resource type="PackedScene" uid="uid://c20jdo6377klh" path="res://computer.tscn" id="5_rf7j2"]
+[ext_resource type="Script" path="res://keyboard.gd" id="3_0d868"]
+[ext_resource type="PackedScene" uid="uid://c5jworo024b4d" path="res://Ordinateur portable.glb" id="5_f10js"]
+[ext_resource type="Theme" uid="uid://bbqhfqmdkfcon" path="res://UI.tres" id="5_ghv7g"]
+[ext_resource type="Script" path="res://rich_text_label.gd" id="5_uwocx"]
 [ext_resource type="PackedScene" uid="uid://dt8xi0gfaxfyj" path="res://room_col.tscn" id="6_hosle"]
-[ext_resource type="PackedScene" uid="uid://bxwdm84y8pggx" path="res://Desk.fbx" id="6_wivpn"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_mo6f5"]
 
@@ -29,6 +31,21 @@ glow_enabled = true
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_jw3g1"]
 
+[sub_resource type="BoxMesh" id="BoxMesh_jtl30"]
+size = Vector3(1, 4, 4)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_6to3w"]
+viewport_path = NodePath("Ordinateur portable/screen/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mlnro"]
+resource_local_to_scene = true
+albedo_texture = SubResource("ViewportTexture_6to3w")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_rktaf"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_mlnro")
+size = Vector2(0.43, 0.42)
+
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_mq7nw")
 
@@ -50,7 +67,7 @@ shadow_enabled = true
 environment = SubResource("Environment_cfb7a")
 
 [node name="CharacterBody3D" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.42903, 1.15384, 4.70094)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.77627, 1.15384, 0)
 script = ExtResource("2_jtq3m")
 
 [node name="Camera3D" type="Camera3D" parent="CharacterBody3D"]
@@ -61,6 +78,40 @@ shape = SubResource("CylinderShape3D_5p6yr")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D/CollisionShape3D"]
 mesh = SubResource("CapsuleMesh_jw3g1")
 skeleton = NodePath("../..")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.999926, 0, -0.0121995, 0, 1, 0, 0.0121995, 0, -0.999926, 11.9866, 2.19821, -0.468458)
+mesh = SubResource("BoxMesh_jtl30")
+
+[node name="Ordinateur portable" parent="." instance=ExtResource("5_f10js")]
+transform = Transform3D(0.994965, 0, 0.100223, 0, 1, 0, -0.100223, 0, 0.994965, 4.99752, 0.656622, 3.49012)
+
+[node name="screen" type="MeshInstance3D" parent="Ordinateur portable"]
+transform = Transform3D(1.16046, -0.00335165, 0.000217833, 0.00149436, 0.343531, -0.680982, 0.00332251, 1.01609, 0.230236, 0.00226355, 0.19144, -0.20438)
+mesh = SubResource("PlaneMesh_rktaf")
+skeleton = NodePath("../../MeshInstance3D3")
+script = ExtResource("3_0d868")
+
+[node name="SubViewport" type="SubViewport" parent="Ordinateur portable/screen"]
+msaa_2d = 2
+msaa_3d = 2
+screen_space_aa = 1
+use_hdr_2d = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Ordinateur portable/screen/SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("5_ghv7g")
+bbcode_enabled = true
+scroll_active = false
+autowrap_mode = 0
+shortcut_keys_enabled = false
+meta_underlined = false
+hint_underlined = false
+script = ExtResource("5_uwocx")
 
 [node name="room-col" parent="." instance=ExtResource("6_hosle")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.26959, 0, 3.96257)
@@ -75,14 +126,5 @@ shadow_blur = 2.845
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Computer" parent="." instance=ExtResource("5_rf7j2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.13336, 0.747397, 3.58368)
-
-[node name="Desk" parent="." instance=ExtResource("6_wivpn")]
-transform = Transform3D(0.35, 0, 0, 0, 0.35, 0, 0, 0, 0.35, 3.66293, 0, 3.43745)
+offset_right = 40.0
+offset_bottom = 40.0

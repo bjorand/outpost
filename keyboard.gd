@@ -1,4 +1,9 @@
-extends MeshInstance3D
+extends Node3D
+
+signal fullscreen_requested(viewport_texture: Texture)
+
+@onready var viewport := $screen/SubViewport
+@onready var rich_text_label := viewport.get_node("RichTextLabel")
 
 const KEY_TO_ASCII = {
 	KEY_ESCAPE: 27,        # ASCII for Escape
@@ -10,7 +15,10 @@ const KEY_TO_ASCII = {
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	var shader_material = $screen.material_override
+	
+	#shader_material.set_shader_param("emission_texture", $screen/SubViewport.get_texture())
+	#shader_material.set_shader_param("emission_strength", 2.0)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -21,7 +29,7 @@ func _process(delta):
 func _input(event: InputEvent):
 	if event is InputEventKey and event.pressed:
 		var ascii_code = 0
-
+		fullscreen_requested.emit(viewport.get_texture())
 		# Check if the key has a printable character
 		if event.unicode > 0:
 			ascii_code = event.unicode
