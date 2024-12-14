@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dt8xi0gfaxfyj"]
+
+[ext_resource type="PackedScene" uid="uid://ddaxytilq7lch" path="res://room-col.glb" id="1_4rvba"]
+
+[node name="room-col" instance=ExtResource("1_4rvba")]
+
+[node name="Cube" parent="." index="0"]
+cast_shadow = 2

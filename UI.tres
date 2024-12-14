@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://bbqhfqmdkfcon"]
+
+[ext_resource type="FontFile" uid="uid://dwpl28ac58qxk" path="res://Cascadia.ttf" id="1_eqrav"]
+
+[resource]
+default_font = ExtResource("1_eqrav")
+default_font_size = 10

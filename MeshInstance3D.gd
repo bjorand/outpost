@@ -14,3 +14,6 @@ func _ready():
 	#light.light_ = 10.0
 	light.light_energy = 1.0
 	add_child(light)
+	
+
+	

@@ -34,6 +34,3 @@ func _input(event: InputEvent):
 			#$"../SubViewport/TextEdit".socket.send_text(string(ascii_code))
 		else:
 			print("Key not mapped to ASCII:", event.physical_keycode)
-
-
-

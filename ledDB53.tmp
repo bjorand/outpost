@@ -1,10 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://brejjc7futkdn"]
+[gd_scene load_steps=18 format=3 uid="uid://brejjc7futkdn"]
 
 [ext_resource type="Script" path="res://MeshInstance3D.gd" id="1_ri400"]
 [ext_resource type="Script" path="res://CharacterBody3D.gd" id="2_jtq3m"]
 [ext_resource type="Script" path="res://keyboard.gd" id="3_0d868"]
 [ext_resource type="PackedScene" uid="uid://c5jworo024b4d" path="res://Ordinateur portable.glb" id="5_f10js"]
-[ext_resource type="Theme" uid="uid://bbqhfqmdkfcon" path="res://UI.tres" id="5_ghv7g"]
 [ext_resource type="Script" path="res://rich_text_label.gd" id="5_uwocx"]
 [ext_resource type="PackedScene" uid="uid://dt8xi0gfaxfyj" path="res://room_col.tscn" id="6_hosle"]
 
@@ -34,16 +33,15 @@ glow_enabled = true
 size = Vector3(1, 4, 4)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_6to3w"]
-viewport_path = NodePath("Ordinateur portable/screen/SubViewport")
+viewport_path = NodePath("MeshInstance3D3/SubViewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mlnro"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g3cyl"]
 resource_local_to_scene = true
 albedo_texture = SubResource("ViewportTexture_6to3w")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_rktaf"]
 resource_local_to_scene = true
-material = SubResource("StandardMaterial3D_mlnro")
-size = Vector2(0.43, 0.42)
+material = SubResource("StandardMaterial3D_g3cyl")
 
 [node name="Node3D" type="Node3D"]
 
@@ -78,45 +76,35 @@ mesh = SubResource("CapsuleMesh_jw3g1")
 skeleton = NodePath("../..")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
-transform = Transform3D(-0.999926, 0, -0.0121995, 0, 1, 0, 0.0121995, 0, -0.999926, 11.9866, 2.19821, -0.468458)
+transform = Transform3D(-0.999926, 0, -0.0121995, 0, 1, 0, 0.0121995, 0, -0.999926, 11.9866, 2.19821, 3.46482)
 mesh = SubResource("BoxMesh_jtl30")
 
-[node name="Ordinateur portable" parent="." instance=ExtResource("5_f10js")]
-transform = Transform3D(0.994965, 0, 0.100223, 0, 1, 0, -0.100223, 0, 0.994965, 4.99752, 0.656622, 3.49012)
-
-[node name="screen" type="MeshInstance3D" parent="Ordinateur portable"]
-transform = Transform3D(1.16046, -0.00335165, 0.000217833, 0.00149436, 0.343531, -0.680982, 0.00332251, 1.01609, 0.230236, 0.00226355, 0.19144, -0.20438)
+[node name="screen" type="MeshInstance3D" parent="MeshInstance3D3"]
+transform = Transform3D(0.0038572, 0.999993, 0, 0.0402361, -0.0001552, -0.99919, -0.999183, 0.00385408, -0.0402364, 0.63612, 0, 0.868077)
 mesh = SubResource("PlaneMesh_rktaf")
-skeleton = NodePath("../../MeshInstance3D3")
 script = ExtResource("3_0d868")
 
-[node name="SubViewport" type="SubViewport" parent="Ordinateur portable/screen"]
-msaa_2d = 2
-msaa_3d = 2
-screen_space_aa = 1
-use_hdr_2d = true
+[node name="SubViewport" type="SubViewport" parent="MeshInstance3D3"]
+disable_3d = true
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Ordinateur portable/screen/SubViewport"]
+[node name="RichTextLabel" type="RichTextLabel" parent="MeshInstance3D3/SubViewport"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("5_ghv7g")
 bbcode_enabled = true
-scroll_active = false
 autowrap_mode = 0
-shortcut_keys_enabled = false
-meta_underlined = false
-hint_underlined = false
 script = ExtResource("5_uwocx")
+
+[node name="Ordinateur portable" parent="." instance=ExtResource("5_f10js")]
+transform = Transform3D(0.994965, 0, 0.100223, 0, 1, 0, -0.100223, 0, 0.994965, 4.99752, 0.656622, 3.49012)
 
 [node name="room-col" parent="." instance=ExtResource("6_hosle")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.26959, 0, 3.96257)
 
 [node name="SpotLight3D" type="OmniLight3D" parent="room-col"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.263525, 1.98784, -1.27042)
-light_color = Color(0.634619, 0.63613, 0.519746, 1)
-light_energy = 2.107
+light_color = Color(1, 0.0745098, 1, 1)
 shadow_enabled = true
 shadow_blur = 2.845
