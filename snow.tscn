@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://yff7o82fgdi6"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xa221"]
+angle_min = 464.7
+angle_max = 464.7
+
+[node name="Node3D" type="Node3D"]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+amount = 2518
+lifetime = 1.15
+process_material = SubResource("ParticleProcessMaterial_xa221")
