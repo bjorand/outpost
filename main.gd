@@ -17,9 +17,9 @@ func _on_computer_fullscreen_requested(viewport_texture: Texture):
 	fullscreen_node.texture = viewport_texture
 	fullscreen_node.visible = true
 	var s = get_window().size
-	$Computer/screen/SubViewport.size = s
-	$Computer/screen/SubViewport/RichTextLabel.autowrap_mode = TextServer.AUTOWRAP_WORD
-	$Computer/screen/SubViewport/RichTextLabel.add_theme_font_size_override("normal_font_size", 40)
+	$Computer/SubViewport.size = s
+	$Computer/SubViewport/RichTextLabel.autowrap_mode = TextServer.AUTOWRAP_WORD
+	$Computer/SubViewport/RichTextLabel.add_theme_font_size_override("normal_font_size", 40)
 	
 	#var ff = f.duplicate()
 	#ff.

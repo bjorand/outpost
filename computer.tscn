@@ -1,16 +1,25 @@
-[gd_scene load_steps=8 format=3 uid="uid://c20jdo6377klh"]
+[gd_scene load_steps=10 format=3 uid="uid://c20jdo6377klh"]
 
 [ext_resource type="Script" path="res://keyboard.gd" id="1_jgtm4"]
+[ext_resource type="Shader" path="res://screen.gdshader" id="2_p1q0s"]
 [ext_resource type="Theme" uid="uid://bbqhfqmdkfcon" path="res://UI.tres" id="2_t718g"]
 [ext_resource type="Script" path="res://rich_text_label.gd" id="3_4elv6"]
 [ext_resource type="PackedScene" uid="uid://c5jworo024b4d" path="res://Ordinateur portable.glb" id="4_6stbc"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_vj8lv"]
-viewport_path = NodePath("screen/SubViewport")
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e836g"]
+render_priority = 0
+shader = ExtResource("2_p1q0s")
+shader_parameter/emission_strength = null
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g3cyl"]
 resource_local_to_scene = true
+next_pass = SubResource("ShaderMaterial_e836g")
 albedo_texture = SubResource("ViewportTexture_vj8lv")
+emission_energy_multiplier = 11.78
+emission_on_uv2 = true
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_vt8sv"]
 resource_local_to_scene = true
@@ -24,13 +33,14 @@ script = ExtResource("1_jgtm4")
 transform = Transform3D(1.16046, -0.00335165, 0.000217833, 0.00149436, 0.343531, -0.680982, 0.00332251, 1.01609, 0.230236, 0.00226355, 0.19144, -0.215636)
 mesh = SubResource("PlaneMesh_vt8sv")
 
-[node name="SubViewport" type="SubViewport" parent="screen"]
-msaa_2d = 2
+[node name="Ordinateur portable" parent="." instance=ExtResource("4_6stbc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00119539, 0.000719666, -0.00921001)
+
+[node name="SubViewport" type="SubViewport" parent="."]
 msaa_3d = 2
-screen_space_aa = 1
 use_hdr_2d = true
 
-[node name="RichTextLabel" type="RichTextLabel" parent="screen/SubViewport"]
+[node name="RichTextLabel" type="RichTextLabel" parent="SubViewport"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -45,6 +55,3 @@ shortcut_keys_enabled = false
 meta_underlined = false
 hint_underlined = false
 script = ExtResource("3_4elv6")
-
-[node name="Ordinateur portable" parent="." instance=ExtResource("4_6stbc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00119539, 0.000719666, -0.00921001)

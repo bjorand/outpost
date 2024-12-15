@@ -2,7 +2,7 @@ extends Node3D
 
 signal fullscreen_requested(viewport_texture: Texture)
 
-@onready var viewport := $screen/SubViewport
+@onready var viewport := $SubViewport
 @onready var rich_text_label := viewport.get_node("RichTextLabel")
 
 const KEY_TO_ASCII = {
@@ -15,9 +15,19 @@ const KEY_TO_ASCII = {
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var shader_material = $screen.material_override
+	var shader_material = $screen.get_active_material(0)
+	#get_surface_material(0).set_shader_param("param", value)
+	var m = $screen.get_active_material(0)
+	m.set_render_priority(0)
+	var m2 = ShaderMaterial.new()
+	m2.shader = preload("res://screen.gdshader")
+	m2.set_shader_parameter("emission_texture", $SubViewport.get_texture())
+	m2.set_shader_parameter("emission_strength", 200.0)
+	m2.set_render_priority(1)
+	m.set_next_pass(m2)
+
+	#shader_material.set_shader_parameter("emission_texture", $screen/SubViewport.get_texture())
 	
-	#shader_material.set_shader_param("emission_texture", $screen/SubViewport.get_texture())
 	#shader_material.set_shader_param("emission_strength", 2.0)
 
 
@@ -29,7 +39,7 @@ func _process(delta):
 func _input(event: InputEvent):
 	if event is InputEventKey and event.pressed:
 		var ascii_code = 0
-		fullscreen_requested.emit(viewport.get_texture())
+		#fullscreen_requested.emit(viewport.get_texture())
 		# Check if the key has a printable character
 		if event.unicode > 0:
 			ascii_code = event.unicode
