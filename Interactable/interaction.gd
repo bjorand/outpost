@@ -14,6 +14,7 @@ func _process(delta: float) -> void:
 
 	if is_colliding() and collider is Interactable:
 		if current_collider != collider:
+			$"../../../UI/CenterContainer".focused()
 			set_interaction_text(collider.get_interaction_text())
 			current_collider = collider
 			
@@ -21,6 +22,7 @@ func _process(delta: float) -> void:
 			collider.interact()
 			set_interaction_text(collider.get_interaction_text())
 	elif current_collider:
+		$"../../../UI/CenterContainer".unfocused()
 		current_collider = null
 		set_interaction_text("")
 		

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://brejjc7futkdn"]
+[gd_scene load_steps=19 format=3 uid="uid://brejjc7futkdn"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_mq7nw"]
 [ext_resource type="Script" path="res://MeshInstance3D.gd" id="1_ri400"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://c20jdo6377klh" path="res://computer.tscn" id="5_rf7j2"]
 [ext_resource type="PackedScene" uid="uid://dt8xi0gfaxfyj" path="res://room_col.tscn" id="6_hosle"]
 [ext_resource type="PackedScene" uid="uid://bxwdm84y8pggx" path="res://Desk.fbx" id="6_wivpn"]
+[ext_resource type="Script" path="res://UI/reticle.gd" id="8_1c6tg"]
 [ext_resource type="Script" path="res://Interactable/InteractableLightSwitch.gd" id="8_bljwl"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_mo6f5"]
@@ -36,8 +37,10 @@ radius = 0.255
 height = 1.8
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4avup"]
+size = Vector3(0.01, 0.1, 0.1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_c56xq"]
+size = Vector3(0.01, 0.1, 0.1)
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_mq7nw")
@@ -66,7 +69,7 @@ script = ExtResource("2_jtq3m")
 [node name="Camera3D" type="Camera3D" parent="Player"]
 
 [node name="InteractionRayCast3D" type="RayCast3D" parent="Player/Camera3D"]
-target_position = Vector3(0, 0, -2)
+target_position = Vector3(0, 0, -1)
 collision_mask = 3
 script = ExtResource("4_6wkjo")
 
@@ -125,8 +128,23 @@ text = "Press E to interact"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="CenterContainer" type="CenterContainer" parent="UI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("8_1c6tg")
+
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.56897, 1.35911, 2.78185)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.33897, 1.17007, 3.32627)
 collision_layer = 2
 script = ExtResource("8_bljwl")
 light = NodePath("../room-col/SpotLight3D")
@@ -135,4 +153,5 @@ light = NodePath("../room-col/SpotLight3D")
 shape = SubResource("BoxShape3D_4avup")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0221627, 0, 0)
 mesh = SubResource("BoxMesh_c56xq")
