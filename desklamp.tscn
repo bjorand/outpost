@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://bp5iwf5uf3hk4"]
+
+[ext_resource type="PackedScene" uid="uid://yxynwum1dvpy" path="res://desk_lamp_arm_01_1k.gltf" id="1_lxwaj"]
+[ext_resource type="Script" path="res://Interactable/InteractableLightSwitch.gd" id="1_mho3m"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ybgn4"]
+albedo_color = Color(0.140447, 0.140447, 0.140447, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_iwaac"]
+material = SubResource("StandardMaterial3D_ybgn4")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pvk4u"]
+size = Vector3(0.195, 0.704, 0.419)
+
+[node name="deskLamp" type="Node3D"]
+
+[node name="ground" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0194583, -0.0103011, -0.223875)
+visible = false
+mesh = SubResource("PlaneMesh_iwaac")
+skeleton = NodePath("")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+script = ExtResource("1_mho3m")
+light = NodePath("../OmniLight3D")
+on_by_default = false
+
+[node name="desk_lamp_arm_01_1k" parent="StaticBody3D" instance=ExtResource("1_lxwaj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.000408642, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00509459, 0.442609, -0.0242238)
+shape = SubResource("BoxShape3D_pvk4u")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0497828, 0.585553, -0.24533)
+light_color = Color(0.929412, 0.843137, 0.501961, 1)
+light_energy = 4.905
+shadow_enabled = true
+omni_range = 1.49361

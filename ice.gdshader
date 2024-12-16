@@ -25,19 +25,19 @@ vec3 calc_normal(vec2 uv) {
 void fragment() {
 	vec2 scaled_uv = UV * uv_scale;
 	vec3 ice_albedo = texture(ice_texture, scaled_uv).rgb;
-	//ALBEDO = ice_albedo;*
+	//ALBEDO = ice_albedo;
 	//ALBEDO = mix(ice_albedo, tint_color, 0.5);
 	ROUGHNESS = roughness;
     METALLIC = metallic;
-	//ALPHA = 1.0 - transparency;
-	
-	float depth_effect = texture(noise_texture, UV).r * transparency;
+	ALPHA = 1.0 - transparency;
+	//
+	float depth_effect = texture(noise_texture, scaled_uv).r * transparency;
     ALBEDO = mix(ALBEDO, tint_color, depth_effect);
     ALPHA = 1.0 - (transparency + depth_effect * 0.5);
 }
 
 void vertex() { 
 	vec2 scaled_uv = UV * uv_scale;
-    VERTEX.y += texture(height_map, scaled_uv).x * height_scale; 
+    VERTEX.y += texture(height_map, UV).x * height_scale; 
     NORMAL = calc_normal(scaled_uv); 
 }

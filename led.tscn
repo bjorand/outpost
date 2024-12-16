@@ -8,10 +8,15 @@
 [ext_resource type="PackedScene" uid="uid://bxwdm84y8pggx" path="res://Desk.fbx" id="6_wivpn"]
 [ext_resource type="Script" path="res://UI/reticle.gd" id="8_1c6tg"]
 [ext_resource type="Script" path="res://Interactable/InteractableLightSwitch.gd" id="8_bljwl"]
-[ext_resource type="Shader" path="res://ice.gdshader" id="9_in0hs"]
-[ext_resource type="Texture2D" uid="uid://batbu5wq62ljg" path="res://6466130.jpg" id="10_6exj0"]
 [ext_resource type="PackedScene" uid="uid://yff7o82fgdi6" path="res://snow.tscn" id="10_dkafk"]
+[ext_resource type="Texture2D" uid="uid://dif6ddsu0qwgv" path="res://textures/snow_02_ao_1k.png" id="10_lbkrt"]
 [ext_resource type="Script" path="res://day_night_cycle.gd" id="10_oj47v"]
+[ext_resource type="Texture2D" uid="uid://cnfnhabxrahh6" path="res://textures/snow_02_diff_4k.jpg" id="10_u4fgp"]
+[ext_resource type="Texture2D" uid="uid://nv8dtcaivfry" path="res://textures/snow_02_disp_4k.png" id="10_xk3qk"]
+[ext_resource type="Texture2D" uid="uid://bnduo8y0kybpr" path="res://textures/snow_02_spec_1k.png" id="12_x36bm"]
+[ext_resource type="Texture2D" uid="uid://bvvd0vsix7hvd" path="res://textures/snow_02_nor_dx_1k.png" id="13_xadnh"]
+[ext_resource type="Texture2D" uid="uid://dcqo3adjstijb" path="res://textures/snow_02_rough_1k.png" id="14_tlrw0"]
+[ext_resource type="PackedScene" uid="uid://bp5iwf5uf3hk4" path="res://desklamp.tscn" id="16_js650"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_r52jj"]
 size = Vector3(1, 1, 4)
@@ -30,42 +35,30 @@ size = Vector3(0.01, 0.1, 0.1)
 [sub_resource type="BoxMesh" id="BoxMesh_c56xq"]
 size = Vector3(0.01, 0.1, 0.1)
 
-[sub_resource type="Gradient" id="Gradient_xdcc5"]
-offsets = PackedFloat32Array(0, 0.861905)
-colors = PackedColorArray(0, 0, 0, 1, 0.87013, 0.87013, 0.87013, 1)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_xsyub"]
-noise_type = 0
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_gl7uo"]
-color_ramp = SubResource("Gradient_xdcc5")
-noise = SubResource("FastNoiseLite_xsyub")
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_me2sx"]
-noise_type = 3
-frequency = 0.1336
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_iboaw"]
-noise = SubResource("FastNoiseLite_me2sx")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_hkr02"]
-render_priority = 0
-shader = ExtResource("9_in0hs")
-shader_parameter/height_scale = 0.645
-shader_parameter/metallic = 0.49
-shader_parameter/roughness = 0.473
-shader_parameter/transparency = 0.58
-shader_parameter/tint_color = Color(0.6, 0.8, 1, 1)
-shader_parameter/uv_scale = Vector2(4.97, 10)
-shader_parameter/ice_texture = ExtResource("10_6exj0")
-shader_parameter/height_map = SubResource("NoiseTexture2D_gl7uo")
-shader_parameter/noise_texture = SubResource("NoiseTexture2D_iboaw")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gpktq"]
+albedo_texture = ExtResource("10_u4fgp")
+metallic = 0.8
+metallic_specular = 1.0
+metallic_texture = ExtResource("12_x36bm")
+roughness = 0.57
+roughness_texture = ExtResource("14_tlrw0")
+emission_energy_multiplier = 0.02
+emission_texture = ExtResource("12_x36bm")
+normal_enabled = true
+normal_scale = -5.1
+normal_texture = ExtResource("13_xadnh")
+anisotropy = 0.52
+anisotropy_flowmap = ExtResource("10_lbkrt")
+ao_enabled = true
+ao_light_affect = 0.17
+ao_texture = ExtResource("10_lbkrt")
+heightmap_enabled = true
+heightmap_texture = ExtResource("10_xk3qk")
+uv1_scale = Vector3(21.965, 17.515, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_mmm25"]
-material = SubResource("ShaderMaterial_hkr02")
-size = Vector2(100, 100)
-subdivide_width = 1000
-subdivide_depth = 1000
+material = SubResource("StandardMaterial3D_gpktq")
+size = Vector2(100, 200)
 
 [sub_resource type="Gradient" id="Gradient_frvly"]
 offsets = PackedFloat32Array(0, 0.382979, 0.567376, 1)
@@ -103,6 +96,11 @@ sky_material = SubResource("ProceduralSkyMaterial_cpicj")
 [sub_resource type="Environment" id="Environment_5ug4m"]
 background_mode = 2
 sky = SubResource("Sky_uh65e")
+ambient_light_color = Color(0.878801, 0.884418, 0.888523, 1)
+ambient_light_sky_contribution = 0.0
+ambient_light_energy = 0.0
+sdfgi_enabled = true
+sdfgi_use_occlusion = true
 glow_enabled = true
 fog_mode = 1
 fog_density = 1.0
@@ -154,10 +152,13 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Computer" parent="." instance=ExtResource("5_rf7j2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.13336, 0.747397, 3.58368)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.60836, 0.747397, 3.58368)
 
 [node name="Desk" parent="." instance=ExtResource("6_wivpn")]
 transform = Transform3D(0.35, 0, 0, 0, 0.35, 0, 0, 0, 0.35, 3.66293, 0, 3.43745)
+
+[node name="deskLamp" parent="Desk" instance=ExtResource("16_js650")]
+transform = Transform3D(-2.82034, 0, -0.457099, 0, 2.85714, 0, 0.457099, 0, -2.82034, -0.620985, 2.11551, -0.976862)
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
@@ -209,12 +210,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0221627, 0, 0)
 mesh = SubResource("BoxMesh_c56xq")
 
 [node name="ground" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.487961, 0.0350189)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.487961, 99.3794)
 mesh = SubResource("PlaneMesh_mmm25")
 
 [node name="DayNightCycle" type="Node3D" parent="."]
 script = ExtResource("10_oj47v")
-day_lenght = 120.0
 sun_color = SubResource("Gradient_frvly")
 sun_intensity = SubResource("Curve_37hno")
 moon_color = SubResource("Gradient_3cyhj")
