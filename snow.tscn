@@ -1,12 +1,43 @@
-[gd_scene load_steps=2 format=3 uid="uid://yff7o82fgdi6"]
+[gd_scene load_steps=5 format=3 uid="uid://yff7o82fgdi6"]
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xa221"]
-angle_min = 464.7
-angle_max = 464.7
+[ext_resource type="Texture2D" uid="uid://cbxm2jvxjp3s3" path="res://addons/kenney_particle_pack/smoke_01.png" id="1_36guf"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_eww8g"]
+emission_shape = 3
+emission_box_extents = Vector3(50, 40, 50)
+scale_min = 0.5
+turbulence_enabled = true
+turbulence_noise_scale = 7.542
+collision_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5b0a2"]
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+albedo_texture = ExtResource("1_36guf")
+albedo_texture_msdf = true
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_i8qsg"]
+material = SubResource("StandardMaterial3D_5b0a2")
+size = Vector2(0.5, 0.5)
+orientation = 2
 
 [node name="Node3D" type="Node3D"]
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
-amount = 2518
-lifetime = 1.15
-process_material = SubResource("ParticleProcessMaterial_xa221")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 35.1404, 0)
+amount = 7603
+lifetime = 13.18
+explosiveness = 0.14
+visibility_aabb = AABB(-101, -17.8879, -100.991, 201.994, 28.8859, 201.976)
+process_material = SubResource("ParticleProcessMaterial_eww8g")
+draw_pass_1 = SubResource("PlaneMesh_i8qsg")
+
+[node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="."]
+visible = false
+size = Vector3(300, 0.01, 300)
