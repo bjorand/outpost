@@ -5,7 +5,7 @@
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_eww8g"]
 emission_shape = 3
 emission_box_extents = Vector3(50, 40, 50)
-scale_min = 0.5
+scale_min = 0.2
 turbulence_enabled = true
 turbulence_noise_scale = 7.542
 collision_mode = 2

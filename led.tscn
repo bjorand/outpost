@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://brejjc7futkdn"]
+[gd_scene load_steps=36 format=3 uid="uid://brejjc7futkdn"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_mq7nw"]
 [ext_resource type="Script" path="res://CharacterBody3D.gd" id="2_jtq3m"]
@@ -8,8 +8,10 @@
 [ext_resource type="PackedScene" uid="uid://bxwdm84y8pggx" path="res://Desk.fbx" id="6_wivpn"]
 [ext_resource type="Script" path="res://UI/reticle.gd" id="8_1c6tg"]
 [ext_resource type="Script" path="res://Interactable/InteractableLightSwitch.gd" id="8_bljwl"]
+[ext_resource type="Script" path="res://UI/fps.gd" id="9_400c4"]
 [ext_resource type="PackedScene" uid="uid://yff7o82fgdi6" path="res://snow.tscn" id="10_dkafk"]
 [ext_resource type="Texture2D" uid="uid://dif6ddsu0qwgv" path="res://textures/snow_02_ao_1k.png" id="10_lbkrt"]
+[ext_resource type="Script" path="res://UI/time.gd" id="10_o5q3c"]
 [ext_resource type="Script" path="res://day_night_cycle.gd" id="10_oj47v"]
 [ext_resource type="Texture2D" uid="uid://cnfnhabxrahh6" path="res://textures/snow_02_diff_4k.jpg" id="10_u4fgp"]
 [ext_resource type="Texture2D" uid="uid://nv8dtcaivfry" path="res://textures/snow_02_disp_4k.png" id="10_xk3qk"]
@@ -96,9 +98,10 @@ sky_material = SubResource("ProceduralSkyMaterial_cpicj")
 [sub_resource type="Environment" id="Environment_5ug4m"]
 background_mode = 2
 sky = SubResource("Sky_uh65e")
-ambient_light_color = Color(0.878801, 0.884418, 0.888523, 1)
-ambient_light_sky_contribution = 0.0
-ambient_light_energy = 0.0
+ambient_light_source = 3
+ssil_enabled = true
+ssil_intensity = 1.84
+ssil_normal_rejection = 0.33
 sdfgi_enabled = true
 sdfgi_use_occlusion = true
 glow_enabled = true
@@ -133,7 +136,7 @@ mesh = SubResource("CapsuleMesh_jw3g1")
 skeleton = NodePath("../..")
 
 [node name="room-col" parent="." instance=ExtResource("6_hosle")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.26959, 0, 3.96257)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.26959, -1.38193, 3.96257)
 
 [node name="SpotLight3D" type="OmniLight3D" parent="room-col"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.263525, 1.98784, -1.27042)
@@ -196,6 +199,25 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("8_1c6tg")
 
+[node name="Debug" type="Control" parent="UI"]
+layout_mode = 1
+anchors_preset = 0
+offset_right = 112.0
+offset_bottom = 233.0
+
+[node name="FPS" type="Label" parent="UI/Debug"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+script = ExtResource("9_400c4")
+
+[node name="Time" type="Label" parent="UI/Debug"]
+layout_mode = 0
+offset_top = 23.0
+offset_right = 40.0
+offset_bottom = 46.0
+script = ExtResource("10_o5q3c")
+
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.33897, 1.17007, 3.32627)
 collision_layer = 2
@@ -232,8 +254,14 @@ shadow_enabled = true
 sky_mode = 1
 
 [node name="Sun" type="DirectionalLight3D" parent="DayNightCycle"]
-transform = Transform3D(1, 0, 0, 0, -0.414947, 0.909846, 0, -0.909846, -0.414947, 0, 27.694, 0)
+transform = Transform3D(1, 0, 0, 0, -0.510903, 0.859639, 0, -0.859639, -0.510903, 0, 27.694, 0)
+light_bake_mode = 1
 shadow_enabled = true
 
 [node name="Node3D" parent="." instance=ExtResource("10_dkafk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -7.54754, 0)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8493, 2.52546)
+light_color = Color(1, 0, 1, 1)
+light_energy = 8.524

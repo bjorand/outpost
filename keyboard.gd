@@ -22,7 +22,7 @@ func _ready():
 	var m2 = ShaderMaterial.new()
 	m2.shader = preload("res://screen.gdshader")
 	m2.set_shader_parameter("emission_texture", $SubViewport.get_texture())
-	m2.set_shader_parameter("emission_strength", 20.0)
+	m2.set_shader_parameter("emission_strength", 10.0)
 	m2.set_render_priority(1)
 	m.set_next_pass(m2)
 

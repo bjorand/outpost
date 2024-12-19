@@ -3,9 +3,18 @@ extends Node3D
 
 # 0 mean midnight
 var time : float
-@export var day_lenght : float = 10.0
+@export var day_lenght : float = 20.0
 @export var start_time : float = 0.3
 var time_rate : float
+
+func humanTime() -> String:
+	var timestamp = int(time * 24 * 3600)
+	var h = timestamp / 3600
+	var m = (timestamp % 3600) / 60
+	var s = timestamp % 60
+	return "%02d:%02d:%02d" % [h, m, s]
+	
+	
 
 # sun
 var sun : DirectionalLight3D
