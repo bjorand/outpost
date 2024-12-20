@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://brejjc7futkdn"]
+[gd_scene load_steps=32 format=3 uid="uid://brejjc7futkdn"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_mq7nw"]
 [ext_resource type="Script" path="res://CharacterBody3D.gd" id="2_jtq3m"]
@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://dcqo3adjstijb" path="res://textures/snow_02_rough_1k.png" id="14_tlrw0"]
 [ext_resource type="PackedScene" uid="uid://bp5iwf5uf3hk4" path="res://desklamp.tscn" id="16_js650"]
 [ext_resource type="Shader" path="res://sky.gdshader" id="19_2oy2g"]
+[ext_resource type="PackedScene" uid="uid://b3f1da4m3d0xl" path="res://wind_turbine.tscn" id="21_dmvmb"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_r52jj"]
 size = Vector3(1, 1, 4)
@@ -103,7 +104,6 @@ sky_material = SubResource("ShaderMaterial_6fg3j")
 background_mode = 2
 sky = SubResource("Sky_uh65e")
 ambient_light_source = 3
-ssil_enabled = true
 ssil_intensity = 1.84
 ssil_normal_rejection = 0.33
 sdfgi_enabled = true
@@ -242,23 +242,32 @@ mesh = SubResource("PlaneMesh_mmm25")
 [node name="DayNightCycle" type="Node3D" parent="."]
 script = ExtResource("10_oj47v")
 time_scale = 0.6654
+sun_base_enegry = 1.0
+moon_base_enegry = 1.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="DayNightCycle"]
 environment = SubResource("Environment_5ug4m")
 
 [node name="Moon" type="DirectionalLight3D" parent="DayNightCycle"]
-transform = Transform3D(1, 0, 0, 0, 0.485283, -0.874357, 0, 0.874357, 0.485283, 0, 27.694, 0)
+transform = Transform3D(0.995979, 0, 0.0895896, 0.0189377, -0.977403, -0.210533, 0.0875652, 0.211383, -0.973473, 0, 0, 0)
+rotation_order = 4
+light_energy = 0.0
 shadow_enabled = true
 
 [node name="Sun" type="DirectionalLight3D" parent="DayNightCycle"]
-transform = Transform3D(1, 0, 0, 0, -0.510903, 0.859639, 0, -0.859639, -0.510903, 0, 27.694, 0)
+transform = Transform3D(0.920626, 0, -0.390445, -0.390445, -4.37114e-08, -0.920627, -1.70669e-08, 1, -4.02419e-08, 0, 0, 0)
+rotation_order = 4
+light_energy = 0.0
 light_bake_mode = 1
 shadow_enabled = true
 
 [node name="Node3D" parent="." instance=ExtResource("10_dkafk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -7.54754, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.09573, 34.7139)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8493, 2.52546)
 light_color = Color(1, 0, 1, 1)
 light_energy = 8.524
+
+[node name="WindTurbine" parent="." instance=ExtResource("21_dmvmb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.35214, 12.7136, 36.9904)

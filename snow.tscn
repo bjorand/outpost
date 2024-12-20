@@ -7,7 +7,8 @@ emission_shape = 3
 emission_box_extents = Vector3(50, 40, 50)
 scale_min = 0.2
 turbulence_enabled = true
-turbulence_noise_scale = 7.542
+turbulence_noise_strength = 2.11
+turbulence_noise_scale = 5.805
 collision_mode = 2
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5b0a2"]
@@ -30,10 +31,11 @@ orientation = 2
 [node name="Node3D" type="Node3D"]
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 35.1404, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 61.6902, 0)
 amount = 7603
-lifetime = 13.18
-explosiveness = 0.14
+lifetime = 9.99
+explosiveness = 0.15
+randomness = 0.39
 visibility_aabb = AABB(-101, -17.8879, -100.991, 201.994, 28.8859, 201.976)
 process_material = SubResource("ParticleProcessMaterial_eww8g")
 draw_pass_1 = SubResource("PlaneMesh_i8qsg")
