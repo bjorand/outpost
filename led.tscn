@@ -46,22 +46,28 @@ metallic_specular = 1.0
 metallic_texture = ExtResource("12_x36bm")
 roughness = 0.57
 roughness_texture = ExtResource("14_tlrw0")
-emission_energy_multiplier = 0.02
+emission_enabled = true
 emission_texture = ExtResource("12_x36bm")
 normal_enabled = true
-normal_scale = -5.1
+normal_scale = -3.94
 normal_texture = ExtResource("13_xadnh")
+clearcoat_roughness = 0.78
 anisotropy = 0.52
 anisotropy_flowmap = ExtResource("10_lbkrt")
 ao_enabled = true
-ao_light_affect = 0.17
+ao_light_affect = 0.42
 ao_texture = ExtResource("10_lbkrt")
+ao_on_uv2 = true
 heightmap_enabled = true
+heightmap_scale = -16.0
 heightmap_texture = ExtResource("10_xk3qk")
 uv1_scale = Vector3(21.965, 17.515, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_mmm25"]
+lightmap_size_hint = Vector2i(503, 1003)
 material = SubResource("StandardMaterial3D_gpktq")
+add_uv2 = true
+uv2_padding = 3.94
 size = Vector2(100, 200)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6fg3j"]
@@ -197,21 +203,21 @@ mesh = SubResource("PlaneMesh_mmm25")
 
 [node name="DayNightCycle" type="Node3D" parent="."]
 script = ExtResource("10_oj47v")
+day_time = 4.7452
 time_scale = 0.6654
-sun_base_enegry = 1.0
+sun_base_enegry = 0.99
 moon_base_enegry = 1.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="DayNightCycle"]
 environment = SubResource("Environment_5ug4m")
 
 [node name="Moon" type="DirectionalLight3D" parent="DayNightCycle"]
-transform = Transform3D(0.995979, 0, 0.0895896, 0.0189377, -0.977402, -0.210533, 0.0875652, 0.211382, -0.973472, 0, 0, 0)
+transform = Transform3D(0.956067, 0, -0.293148, 0.244627, -0.551037, 0.797818, -0.161536, -0.83448, -0.526828, 0, 0, 0)
 rotation_order = 4
-light_energy = 0.0
 shadow_enabled = true
 
 [node name="Sun" type="DirectionalLight3D" parent="DayNightCycle"]
-transform = Transform3D(0.920626, 0, -0.390445, -0.390445, -4.37114e-08, -0.920627, -1.70669e-08, 1, -4.02419e-08, 0, 0, 0)
+transform = Transform3D(0.920734, 0, -0.390191, -0.125887, 0.946525, -0.297056, 0.369325, 0.322629, 0.871499, 0, 0, 0)
 rotation_order = 4
 light_energy = 0.0
 light_bake_mode = 1
@@ -226,7 +232,13 @@ light_color = Color(1, 0, 1, 1)
 light_energy = 8.524
 
 [node name="WindTurbine" parent="." instance=ExtResource("21_dmvmb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.35214, 12.7136, 36.9904)
+transform = Transform3D(0.802994, 0, -0.595987, 0, 1, 0, 0.595987, 0, 0.802994, -34.2576, 12.7136, 27.2362)
+
+[node name="WindTurbine2" parent="." instance=ExtResource("21_dmvmb")]
+transform = Transform3D(0.802994, 0, -0.595987, 0, 1, 0, 0.595987, 0, 0.802994, -31.8708, 12.7136, 56.4258)
+
+[node name="WindTurbine3" parent="." instance=ExtResource("21_dmvmb")]
+transform = Transform3D(0.802994, 0, -0.595987, 0, 1, 0, 0.595987, 0, 0.802994, -29.138, 12.7136, 103.344)
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3

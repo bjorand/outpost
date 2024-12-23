@@ -1,14 +1,39 @@
-[gd_scene load_steps=4 format=3 uid="uid://b3f1da4m3d0xl"]
+[gd_scene load_steps=10 format=3 uid="uid://b3f1da4m3d0xl"]
 
 [ext_resource type="Script" path="res://wind_turbine.gd" id="1_vey8k"]
+[ext_resource type="Script" path="res://scripts/flashing_light.gd" id="2_ie7vi"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d0rry"]
+albedo_color = Color(0.976469, 0.976469, 0.976469, 1)
+metallic = 0.56
+metallic_specular = 0.68
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_aa61t"]
+lightmap_size_hint = Vector2i(56, 154)
+material = SubResource("StandardMaterial3D_d0rry")
 top_radius = 1.117
 bottom_radius = 1.735
 height = 26.691
 
 [sub_resource type="BoxMesh" id="BoxMesh_3h7jf"]
-size = Vector3(1, 1, 25)
+size = Vector3(0.335, 2.505, 25)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_mq4oi"]
+top_radius = 1.145
+bottom_radius = 0.0
+height = 1.597
+
+[sub_resource type="BoxMesh" id="BoxMesh_iummg"]
+size = Vector3(4.73, 2.955, 2.265)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2yq30"]
+albedo_color = Color(1, 0.0431373, 0.172549, 1)
+emission_energy_multiplier = 15.9
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_eidvl"]
+material = SubResource("StandardMaterial3D_2yq30")
+radius = 0.1
+height = 0.2
 
 [node name="WindTurbine" type="Node3D"]
 
@@ -16,6 +41,28 @@ size = Vector3(1, 1, 25)
 mesh = SubResource("CylinderMesh_aa61t")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.67041, 12.2166, 0)
+transform = Transform3D(1, 0, 0, 0, -0.0164926, -0.999864, 0, 0.999864, -0.0164926, 2.72601, 14.1789, 0)
 mesh = SubResource("BoxMesh_3h7jf")
 script = ExtResource("1_vey8k")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D/MeshInstance3D"]
+transform = Transform3D(-4.37114e-08, -0.999864, 0.0164926, 0.999864, 0.000271963, 0.0164904, -0.0164926, 0.0164904, 0.999728, 0.743576, 0, 0)
+mesh = SubResource("CylinderMesh_mq4oi")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.0848, 0)
+mesh = SubResource("BoxMesh_iummg")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16.1671, 0)
+mesh = SubResource("CapsuleMesh_eidvl")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="MeshInstance3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0480042, 0.544842, 0)
+light_color = Color(1, 0.0509804, 0, 1)
+light_energy = 16.0
+light_specular = 16.0
+omni_range = 10.0475
+script = ExtResource("2_ie7vi")
+on_duration = 0.227
+off_duration = 1.0
