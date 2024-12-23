@@ -1,6 +1,6 @@
 extends RichTextLabel
 
-var socket : StreamPeerTCP
+var socket := StreamPeerTCP.new()
 var buffer = []
 var max_lines = 250
 var screen_width = 80
@@ -97,7 +97,7 @@ func replace_with_line_drawing(text: String) -> String:
 			result += char
 	return result
 
-func render_screen() -> String:
+func render_screen():
 	var bbcode_text = ""
 	var current_color = ""
 	var current_bgcolor = ""
@@ -127,19 +127,25 @@ func render_screen() -> String:
 			push_bgcolor(cell["bgcolor"])
 			if cell.bold:
 				push_bold()
-			add_text(cell.char)
+			if cell.char == " ":
+				
+				# FIXME: godot trim multiple spaces.... Write a real screen?
+				add_text(" ")
+
+				
+			else:
+				add_text(cell.char)
 			if cell.bold:
 				pop()
 			pop()
 			pop()
 		add_text("\n")
-		bbcode_text += "\n"
-	return bbcode_text.strip_edges()
+		#bbcode_text += "\n"
 
 
 
 func clear_screen():
-	initialize_screen()
+	initialize_screen(connected)
 	return
 	for i in range(screen_height):
 		screen_buffer[i] = " ".repeat(screen_width)
@@ -167,9 +173,12 @@ func clear_to_cursor():
 	for i in range(row):
 		screen_buffer[i] = " " * screen_width
 
-func initialize_screen():
+func initialize_screen(connected: bool):
 	cursor_position.x = 0
 	cursor_position.y = 0
+	#if !connected:
+		#cell_template.bgcolor = "blue"
+	screen_buffer = []
 	for y in range(screen_height):
 		var row = []
 		for x in range(screen_width):
@@ -185,7 +194,11 @@ var current_style = {
 
 func update_screen_with_text(text: String):
 	for char in text:
-		if char == '\n':
+	
+		if char == '\r':
+			cursor_position.x = 0
+		if char == '\n' or char == '\r\n':
+			#print("got", int(char))
 			# Passe à la ligne suivante
 			cursor_position.x = 0
 			cursor_position.y += 1
@@ -194,8 +207,6 @@ func update_screen_with_text(text: String):
 		else:
 			if cursor_position.y < screen_height and cursor_position.x < screen_width:
 				var cell = screen_buffer[cursor_position.y][cursor_position.x]
-				#if char == "":
-					#char = " "
 				cell.char = char
 				cell.color = current_style["color"]
 				cell.bgcolor = current_style["bgcolor"]
@@ -218,7 +229,6 @@ func ansi_to_bbcode(ansi_text: String):
 
 	var last_index = 0
 	var matches = regex.search_all(ansi_text)
-
 	for match in matches:
 		var start = match.get_start()
 		var end = match.get_end()
@@ -233,6 +243,7 @@ func ansi_to_bbcode(ansi_text: String):
 		# Analyse la séquence ANSI
 		var codes = match.get_string(1).split(";")
 		var command = match.get_string(3)
+		print(matches)
 		if match.get_string(0).begins_with("\\033("):
 			var mode = match.get_string(4)
 			if mode == "0":
@@ -290,18 +301,57 @@ func ansi_to_bbcode(ansi_text: String):
 
 
 # Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	initialize_screen()
-	socket = StreamPeerTCP.new()
-	if socket.connect_to_host("192.168.1.19", 8080) == OK:
-		print("Connected to htop server")
+
+func connect_to_server():
+	var res = socket.connect_to_host("192.168.1.19", 8080)
+	if res == OK:
+		last_connection_try = 0.0
 	else:
 		print("Failed to connect to server")
+	
+
+func _ready() -> void:
+	socket.set_no_delay(true) 
+	initialize_screen(connected)
+	connect_to_server()
+	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
+
+var last_connection_try := 0.0
+var reconnect_interval := 10.0
+var connect_timeout := 3.0
+var connected := false
+
 func _process(delta: float) -> void:
 	socket.poll()
+	if socket.get_status() == socket.STATUS_ERROR or socket.get_status() == socket.STATUS_NONE:
+		last_connection_try += delta
+		if connected:
+			connected = false
+			initialize_screen(connected)
+		if last_connection_try < reconnect_interval:
+			print("reconnecting....")
+			connect_to_server()
+			
+	if socket.get_status() == socket.STATUS_CONNECTING:
+		connected = false
+		if last_connection_try > connect_timeout:
+			print("timeout...")
+			socket.disconnect_from_host()
+	
+	if socket.get_status() == socket.STATUS_CONNECTED and !connected:
+		print("Connected!")
+		connected = true
+		last_connection_try = 0
+		initialize_screen(connected)
+		
+		
+	if !connected:
+		render_screen()
+		return
+		
 	if socket.get_available_bytes() > 0:
 		
 		var data = socket.get_utf8_string(socket.get_available_bytes())

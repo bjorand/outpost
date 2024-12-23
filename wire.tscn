@@ -1,0 +1,63 @@
+[gd_scene load_steps=6 format=3 uid="uid://dbh4bw5o5p0qq"]
+
+[ext_resource type="Script" path="res://scripts/wire.gd" id="1_ma4bk"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_jvj5i"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_2i3kn"]
+radius = 0.01
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_gxc1f"]
+top_radius = 0.01
+bottom_radius = 0.01
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_h7mbj"]
+top_radius = 0.01
+bottom_radius = 0.01
+
+[node name="Wire" type="Node3D"]
+script = ExtResource("1_ma4bk")
+
+[node name="ConeTwistJoint3D" type="JoltConeTwistJoint3D" parent="."]
+node_a = NodePath("../StaticBody3D")
+node_b = NodePath("../RigidBody3D")
+transform = Transform3D(-0.347312, 0, -0.93775, 0, 1, 0, 0.93775, 0, -0.347312, -0.32445, 11.1652, -0.21745)
+
+[node name="ConeTwistJoint3D2" type="JoltConeTwistJoint3D" parent="."]
+node_a = NodePath("../RigidBody3D2")
+node_b = NodePath("../RigidBody3D")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0205501, 7.8673, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.41999, 11.5271, 0.770192)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("BoxMesh_jvj5i")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000327766, 7.98967, -0.00319606)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.882893, 0)
+shape = SubResource("CylinderShape3D_2i3kn")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0389754, 0, 0)
+mesh = SubResource("CylinderMesh_gxc1f")
+skeleton = NodePath("../..")
+
+[node name="RigidBody3D2" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0395259, 6.8724, -0.00323415)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D2"]
+shape = SubResource("CylinderShape3D_2i3kn")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D2/CollisionShape3D"]
+mesh = SubResource("CylinderMesh_h7mbj")
+skeleton = NodePath("../..")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.821955, 0, 0.569552, 0, 1, 0, -0.569552, 0, 0.821955, 6.94205, 8.40634, 3.81198)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.891078, 0.453851, 0, -0.453851, 0.891078, -0.326603, 9.58206, 9.53674e-07)

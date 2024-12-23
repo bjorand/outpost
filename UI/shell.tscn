@@ -1,0 +1,44 @@
+[gd_scene load_steps=4 format=3 uid="uid://byap7b0adc0r5"]
+
+[ext_resource type="Theme" uid="uid://bbqhfqmdkfcon" path="res://UI.tres" id="1_mfqx7"]
+[ext_resource type="FontFile" uid="uid://dwpl28ac58qxk" path="res://Assets/Fonts/Cascadia.ttf" id="2_wa21j"]
+[ext_resource type="Script" path="res://rich_text_label.gd" id="3_wx185"]
+
+[node name="Shell" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_mfqx7")
+theme_override_fonts/normal_font = ExtResource("2_wa21j")
+theme_override_fonts/mono_font = ExtResource("2_wa21j")
+theme_override_fonts/italics_font = ExtResource("2_wa21j")
+theme_override_fonts/bold_italics_font = ExtResource("2_wa21j")
+theme_override_fonts/bold_font = ExtResource("2_wa21j")
+theme_override_font_sizes/bold_italics_font_size = 10
+theme_override_font_sizes/italics_font_size = 10
+theme_override_font_sizes/mono_font_size = 10
+theme_override_font_sizes/normal_font_size = 10
+theme_override_font_sizes/bold_font_size = 10
+bbcode_enabled = true
+text = "SALUT"
+scroll_following = true
+autowrap_mode = 0
+shortcut_keys_enabled = false
+meta_underlined = false
+hint_underlined = false
+script = ExtResource("3_wx185")

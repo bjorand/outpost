@@ -3,9 +3,12 @@
 [ext_resource type="Script" path="res://keyboard.gd" id="1_jgtm4"]
 [ext_resource type="Script" path="res://Interactable/InteractableComputer.gd" id="1_s8i52"]
 [ext_resource type="Shader" path="res://screen.gdshader" id="2_p1q0s"]
-[ext_resource type="Theme" uid="uid://bbqhfqmdkfcon" path="res://UI.tres" id="2_t718g"]
-[ext_resource type="Script" path="res://rich_text_label.gd" id="3_4elv6"]
+[ext_resource type="PackedScene" uid="uid://byap7b0adc0r5" path="res://UI/shell.tscn" id="4_04tt1"]
 [ext_resource type="PackedScene" uid="uid://c5jworo024b4d" path="res://Ordinateur portable.glb" id="4_6stbc"]
+[ext_resource type="PackedScene" uid="uid://uak25u0w4dl5" path="res://UI/editor.tscn" id="6_nmgpk"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_m73h5"]
+size = Vector3(1, 0.77002, 1)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_vj8lv"]
 viewport_path = NodePath("SubViewport")
@@ -17,9 +20,10 @@ shader_parameter/emission_strength = null
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g3cyl"]
 resource_local_to_scene = true
+render_priority = 1
 next_pass = SubResource("ShaderMaterial_e836g")
 albedo_texture = SubResource("ViewportTexture_vj8lv")
-emission_energy_multiplier = 11.78
+emission_energy_multiplier = 1.28
 emission_on_uv2 = true
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_vt8sv"]
@@ -27,39 +31,13 @@ resource_local_to_scene = true
 material = SubResource("StandardMaterial3D_g3cyl")
 size = Vector2(0.43, 0.42)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_m73h5"]
-size = Vector3(1, 0.77002, 1)
-
 [node name="Computer" type="Node3D"]
 script = ExtResource("1_jgtm4")
-
-[node name="screen" type="MeshInstance3D" parent="."]
-transform = Transform3D(1.16046, -0.00335165, 0.000217833, 0.00149436, 0.343531, -0.680982, 0.00332251, 1.01609, 0.230236, 0.00226355, 0.19144, -0.215636)
-mesh = SubResource("PlaneMesh_vt8sv")
-
-[node name="SubViewport" type="SubViewport" parent="."]
-msaa_3d = 2
-use_hdr_2d = true
-
-[node name="RichTextLabel" type="RichTextLabel" parent="SubViewport"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("2_t718g")
-bbcode_enabled = true
-text = "SALUT"
-scroll_active = false
-autowrap_mode = 0
-shortcut_keys_enabled = false
-meta_underlined = false
-hint_underlined = false
-script = ExtResource("3_4elv6")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 collision_layer = 2
 script = ExtResource("1_s8i52")
+computer = NodePath("..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 transform = Transform3D(0.556788, 0, 0, 0, 0.511082, 0.0314681, 0, -0.175571, 0.0916029, 0, 0.201879, -0.165163)
@@ -67,3 +45,16 @@ shape = SubResource("BoxShape3D_m73h5")
 
 [node name="Ordinateur portable" parent="StaticBody3D/CollisionShape3D" instance=ExtResource("4_6stbc")]
 transform = Transform3D(1.79602, 0, 0, 0, 1.7501, -0.601208, 0, 3.35433, 9.76438, 0.00214694, -0.445809, 0.848034)
+
+[node name="screen" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.16046, -0.00335165, 0.000217833, 0.00149436, 0.343531, -0.680982, 0.00332251, 1.01609, 0.230236, 0.00226355, 0.19144, -0.215636)
+mesh = SubResource("PlaneMesh_vt8sv")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+disable_3d = true
+use_hdr_2d = true
+
+[node name="Editor" parent="SubViewport" instance=ExtResource("6_nmgpk")]
+
+[node name="Shell" parent="SubViewport" instance=ExtResource("4_04tt1")]
+visible = false

@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://brejjc7futkdn"]
+[gd_scene load_steps=33 format=3 uid="uid://brejjc7futkdn"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_mq7nw"]
 [ext_resource type="Script" path="res://CharacterBody3D.gd" id="2_jtq3m"]
@@ -112,6 +112,14 @@ glow_enabled = true
 fog_mode = 1
 fog_density = 1.0
 
+[sub_resource type="LabelSettings" id="LabelSettings_10gan"]
+font_size = 41
+outline_size = 19
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 12
+shadow_color = Color(0.862745, 0.862745, 0.862745, 0.223529)
+shadow_offset = Vector2(8.725, 7.33)
+
 [node name="World" type="Node3D"]
 script = ExtResource("1_mq7nw")
 
@@ -152,11 +160,14 @@ shadow_blur = 2.845
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+z_index = 2
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="Computer" parent="." instance=ExtResource("5_rf7j2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.60836, 0.747397, 3.58368)
@@ -166,6 +177,56 @@ transform = Transform3D(0.35, 0, 0, 0, 0.35, 0, 0, 0, 0.35, 3.66293, 0, 3.43745)
 
 [node name="deskLamp" parent="Desk" instance=ExtResource("16_js650")]
 transform = Transform3D(-2.82034, 0, -0.457099, 0, 2.85714, 0, 0.457099, 0, -2.82034, -0.620985, 2.11551, -0.976862)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.33897, 1.17007, 3.32627)
+collision_layer = 2
+script = ExtResource("8_bljwl")
+light = NodePath("../room-col/SpotLight3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_4avup")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0221627, 0, 0)
+mesh = SubResource("BoxMesh_c56xq")
+
+[node name="ground" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.487961, 99.3794)
+mesh = SubResource("PlaneMesh_mmm25")
+
+[node name="DayNightCycle" type="Node3D" parent="."]
+script = ExtResource("10_oj47v")
+time_scale = 0.6654
+sun_base_enegry = 1.0
+moon_base_enegry = 1.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="DayNightCycle"]
+environment = SubResource("Environment_5ug4m")
+
+[node name="Moon" type="DirectionalLight3D" parent="DayNightCycle"]
+transform = Transform3D(0.995979, 0, 0.0895896, 0.0189377, -0.977402, -0.210533, 0.0875652, 0.211382, -0.973472, 0, 0, 0)
+rotation_order = 4
+light_energy = 0.0
+shadow_enabled = true
+
+[node name="Sun" type="DirectionalLight3D" parent="DayNightCycle"]
+transform = Transform3D(0.920626, 0, -0.390445, -0.390445, -4.37114e-08, -0.920627, -1.70669e-08, 1, -4.02419e-08, 0, 0, 0)
+rotation_order = 4
+light_energy = 0.0
+light_bake_mode = 1
+shadow_enabled = true
+
+[node name="Node3D" parent="." instance=ExtResource("10_dkafk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.09573, 34.7139)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8493, 2.52546)
+light_color = Color(1, 0, 1, 1)
+light_energy = 8.524
+
+[node name="WindTurbine" parent="." instance=ExtResource("21_dmvmb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.35214, 12.7136, 36.9904)
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
@@ -185,6 +246,7 @@ offset_top = -23.0
 grow_horizontal = 2
 grow_vertical = 0
 text = "Press E to interact"
+label_settings = SubResource("LabelSettings_10gan")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -221,53 +283,3 @@ offset_top = 23.0
 offset_right = 40.0
 offset_bottom = 46.0
 script = ExtResource("10_o5q3c")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.33897, 1.17007, 3.32627)
-collision_layer = 2
-script = ExtResource("8_bljwl")
-light = NodePath("../room-col/SpotLight3D")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-shape = SubResource("BoxShape3D_4avup")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D/CollisionShape3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0221627, 0, 0)
-mesh = SubResource("BoxMesh_c56xq")
-
-[node name="ground" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.487961, 99.3794)
-mesh = SubResource("PlaneMesh_mmm25")
-
-[node name="DayNightCycle" type="Node3D" parent="."]
-script = ExtResource("10_oj47v")
-time_scale = 0.6654
-sun_base_enegry = 1.0
-moon_base_enegry = 1.0
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="DayNightCycle"]
-environment = SubResource("Environment_5ug4m")
-
-[node name="Moon" type="DirectionalLight3D" parent="DayNightCycle"]
-transform = Transform3D(0.995979, 0, 0.0895896, 0.0189377, -0.977403, -0.210533, 0.0875652, 0.211383, -0.973473, 0, 0, 0)
-rotation_order = 4
-light_energy = 0.0
-shadow_enabled = true
-
-[node name="Sun" type="DirectionalLight3D" parent="DayNightCycle"]
-transform = Transform3D(0.920626, 0, -0.390445, -0.390445, -4.37114e-08, -0.920627, -1.70669e-08, 1, -4.02419e-08, 0, 0, 0)
-rotation_order = 4
-light_energy = 0.0
-light_bake_mode = 1
-shadow_enabled = true
-
-[node name="Node3D" parent="." instance=ExtResource("10_dkafk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.09573, 34.7139)
-
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8493, 2.52546)
-light_color = Color(1, 0, 1, 1)
-light_energy = 8.524
-
-[node name="WindTurbine" parent="." instance=ExtResource("21_dmvmb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.35214, 12.7136, 36.9904)

@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://cguoxv0o4hsoi"]
+
+[ext_resource type="FontFile" uid="uid://dwpl28ac58qxk" path="res://Assets/Fonts/Cascadia.ttf" id="1_enwj8"]
+
+[resource]
+CodeEdit/font_sizes/font_size = 33
+CodeEdit/fonts/font = ExtResource("1_enwj8")

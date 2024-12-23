@@ -2,10 +2,12 @@ extends Node3D
 
 @onready var fullscreen_node := $CanvasLayer/TextureRect
 @onready var computer = $Computer
+@onready var viewport = get_node("Computer/SubViewport")
+@onready var shell = viewport.get_node("Shell/RichTextLabel")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	computer.fullscreen_requested.connect(_on_computer_fullscreen_requested)
+	Global.fullscreen_requested.connect(_on_computer_fullscreen_requested)
 	
 
 
@@ -18,9 +20,10 @@ func _on_computer_fullscreen_requested(viewport_texture: Texture):
 	fullscreen_node.texture = viewport_texture
 	fullscreen_node.visible = true
 	var s = get_window().size
-	$Computer/SubViewport.size = s
-	$Computer/SubViewport/RichTextLabel.autowrap_mode = TextServer.AUTOWRAP_WORD
-	$Computer/SubViewport/RichTextLabel.add_theme_font_size_override("normal_font_size", 40)
+	viewport.size = s
+	#$Computer/SubViewport/RichTextLabel.autowrap_mode = TextServer.AUTOWRAP_WORD
+	#shell.add_theme_font_size_override("normal_font_size", 20)
+	#shell.add_theme_font_size_override("bold_font_size", 20)
 	
 	#var ff = f.duplicate()
 	#ff.
@@ -33,10 +36,12 @@ func _on_computer_fullscreen_requested(viewport_texture: Texture):
 	
 func _unhandled_input(event):
 	# Quitte le mode plein écran avec ESC
-
+	if fullscreen_node.visible:
+		$Computer/SubViewport.push_input(event)
 	if fullscreen_node.visible and event is InputEventKey and event.pressed and event.physical_keycode == KEY_ESCAPE:
 		deactivate_fullscreen()
 
 func deactivate_fullscreen():
 	fullscreen_node.visible = false
+	viewport.size = Vector2(512.0, 512.0)
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)

@@ -1,0 +1,39 @@
+[remap]
+
+importer="font_data_dynamic"
+type="FontFile"
+uid="uid://dwpl28ac58qxk"
+path="res://.godot/imported/Cascadia.ttf-c77eff86cc592fc983dd66e59c92418b.fontdata"
+
+[deps]
+
+source_file="res://Assets/Fonts/Cascadia.ttf"
+dest_files=["res://.godot/imported/Cascadia.ttf-c77eff86cc592fc983dd66e59c92418b.fontdata"]
+
+[params]
+
+Rendering=null
+antialiasing=2
+generate_mipmaps=true
+disable_embedded_bitmaps=true
+multichannel_signed_distance_field=true
+msdf_pixel_range=8
+msdf_size=48
+allow_system_fallback=true
+force_autohinter=false
+hinting=1
+subpixel_positioning=1
+oversampling=0.0
+Fallbacks=null
+fallbacks=[]
+Compress=null
+compress=true
+preload=[{
+"chars": [],
+"glyphs": [],
+"name": "Nouvelle configuration",
+"size": Vector2i(16, 0)
+}]
+language_support={}
+script_support={}
+opentype_features={}

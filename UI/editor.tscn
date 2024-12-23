@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=3 uid="uid://uak25u0w4dl5"]
+
+[ext_resource type="Theme" uid="uid://bbqhfqmdkfcon" path="res://UI.tres" id="1_mxstv"]
+[ext_resource type="Theme" uid="uid://cguoxv0o4hsoi" path="res://UI/pico8.tres" id="1_xp22c"]
+
+[node name="Editor" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_xp22c")
+
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_mxstv")
+current_tab = 0
+
+[node name="CodeEdit" type="CodeEdit" parent="TabContainer"]
+layout_mode = 2
+text = "EDITOR
+
+if (1==1) {
+	print \"a\"
+}"
+gutters_draw_line_numbers = true
+gutters_draw_fold_gutter = true
+metadata/_tab_index = 0
+
+[node name="CodeEdit2" type="CodeEdit" parent="TabContainer"]
+visible = false
+layout_mode = 2
+text = "EDITOR"
+delimiter_strings = Array[String](["\" \"", "' '"])
+metadata/_tab_index = 1

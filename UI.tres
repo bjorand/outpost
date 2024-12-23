@@ -1,7 +1,16 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://bbqhfqmdkfcon"]
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://bbqhfqmdkfcon"]
 
-[ext_resource type="FontFile" uid="uid://dwpl28ac58qxk" path="res://Cascadia.ttf" id="1_eqrav"]
+[ext_resource type="FontFile" uid="uid://dwpl28ac58qxk" path="res://Assets/Fonts/Cascadia.ttf" id="1_g41q3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0dfy2"]
+bg_color = Color(0.662379, 0.546733, 0.745707, 1)
 
 [resource]
-default_font = ExtResource("1_eqrav")
+default_font = ExtResource("1_g41q3")
 default_font_size = 10
+CodeEdit/font_sizes/font_size = 20
+TabBar/font_sizes/font_size = 16
+TabBar/fonts/font = ExtResource("1_g41q3")
+TabContainer/font_sizes/font_size = 18
+TabContainer/fonts/font = ExtResource("1_g41q3")
+TabContainer/styles/tabbar_background = SubResource("StyleBoxFlat_0dfy2")
