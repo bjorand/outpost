@@ -8,8 +8,17 @@ extends Interactable
 @onready var light_node = get_node(light)
 @onready var on = on_by_default
 
-func get_interaction_text():
-	return "Switch Light Off" if on else "Switch Light On"
+func get_interactions():
+	return {
+		"key": "E",
+		"actions": [
+			{
+				"text": "Switch Light Off" if on else "Switch Light On",
+				"fn": interact,
+			}
+		]
+	}
+	return 
 
 func _ready():
 	set_light_energy()

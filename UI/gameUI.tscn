@@ -1,0 +1,128 @@
+[gd_scene load_steps=9 format=3 uid="uid://k8d8hssuxdhm"]
+
+[ext_resource type="Theme" uid="uid://dtdmnqoamyhux" path="res://UI/interaction.tres" id="1_quhxw"]
+[ext_resource type="Theme" uid="uid://dn4wle0foeno2" path="res://UI/interactionKey.tres" id="1_y8ade"]
+[ext_resource type="Script" path="res://UI/reticle.gd" id="2_2ou4i"]
+[ext_resource type="Script" path="res://UI/fps.gd" id="3_f8kgk"]
+[ext_resource type="Script" path="res://UI/time.gd" id="4_trk4d"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_m55xt"]
+font_size = 41
+
+[sub_resource type="LabelSettings" id="LabelSettings_w6nfn"]
+font_size = 51
+
+[sub_resource type="LabelSettings" id="LabelSettings_k13b3"]
+font_size = 26
+
+[node name="UI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InteractionPanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -187.0
+offset_top = -28.0
+offset_right = 187.0
+offset_bottom = 29.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_quhxw")
+
+[node name="InteractionLabel" type="Label" parent="InteractionPanelContainer"]
+layout_mode = 2
+theme = ExtResource("1_y8ade")
+text = "Sample interaction"
+label_settings = SubResource("LabelSettings_m55xt")
+vertical_alignment = 1
+
+[node name="KeyPanelContainer" type="PanelContainer" parent="InteractionPanelContainer/InteractionLabel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.137
+anchor_top = -0.472
+offset_left = -6.262
+offset_top = 11.904
+offset_right = -17.5
+offset_bottom = 55.0
+theme = ExtResource("1_y8ade")
+
+[node name="KeyLabel" type="Label" parent="InteractionPanelContainer/InteractionLabel/KeyPanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("1_y8ade")
+text = "E"
+label_settings = SubResource("LabelSettings_w6nfn")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MorePanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -183.0
+offset_top = 38.0
+offset_right = 54.0
+offset_bottom = 113.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MoreInteractionsLabel" type="Label" parent="MorePanelContainer"]
+layout_mode = 2
+text = "Sample interaction
+Third interaction"
+label_settings = SubResource("LabelSettings_k13b3")
+vertical_alignment = 1
+
+[node name="MoreIndicator" type="Polygon2D" parent="MorePanelContainer"]
+position = Vector2(-65.4515, -17.5786)
+scale = Vector2(0.910813, 0.399691)
+polygon = PackedVector2Array(8.18109, 33.9729, 29.0416, 68.9999, 39.3246, 52.2594, 44.7456, 44.2456, 51, 33.9729, 43.3145, 33.9729, 29.0416, 58.9922, 13.6707, 33.9729)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_2ou4i")
+
+[node name="Debug" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 0
+offset_right = 112.0
+offset_bottom = 233.0
+
+[node name="FPS" type="Label" parent="Debug"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "60 FPS"
+script = ExtResource("3_f8kgk")
+
+[node name="Time" type="Label" parent="Debug"]
+layout_mode = 0
+offset_top = 23.0
+offset_right = 40.0
+offset_bottom = 46.0
+text = "12:00:00"
+script = ExtResource("4_trk4d")

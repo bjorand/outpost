@@ -4,6 +4,9 @@ extends Node3D
 @onready var shell := viewport.get_node("Shell/RichTextLabel")
 @onready var screen = get_node("screen")
 
+func reset():
+	print("Computer reset asked")
+
 var input_buffer: String = ""
 
 const KEY_TO_ASCII = {

@@ -6,8 +6,20 @@ extends Interactable
 
 @onready var fullscreen = false
 
-func get_interaction_text():
-	return "Use computer"
+func get_interactions():
+	return {
+		"key": "E",
+		"actions": [
+			{
+				"text": "Use computer",
+				"fn": interact,
+			},
+			{
+				"text": "Reset computer",
+				"fn": computer_node.reset,
+			}
+		]
+	}
 
 func _ready():
 	pass

@@ -1,17 +1,15 @@
-[gd_scene load_steps=33 format=3 uid="uid://brejjc7futkdn"]
+[gd_scene load_steps=30 format=3 uid="uid://brejjc7futkdn"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_mq7nw"]
 [ext_resource type="Script" path="res://CharacterBody3D.gd" id="2_jtq3m"]
+[ext_resource type="PackedScene" uid="uid://k8d8hssuxdhm" path="res://UI/gameUI.tscn" id="2_u2p08"]
 [ext_resource type="Script" path="res://Interactable/interaction.gd" id="4_6wkjo"]
 [ext_resource type="PackedScene" uid="uid://c20jdo6377klh" path="res://computer.tscn" id="5_rf7j2"]
 [ext_resource type="PackedScene" uid="uid://dt8xi0gfaxfyj" path="res://room_col.tscn" id="6_hosle"]
 [ext_resource type="PackedScene" uid="uid://bxwdm84y8pggx" path="res://Desk.fbx" id="6_wivpn"]
-[ext_resource type="Script" path="res://UI/reticle.gd" id="8_1c6tg"]
 [ext_resource type="Script" path="res://Interactable/InteractableLightSwitch.gd" id="8_bljwl"]
-[ext_resource type="Script" path="res://UI/fps.gd" id="9_400c4"]
 [ext_resource type="PackedScene" uid="uid://yff7o82fgdi6" path="res://snow.tscn" id="10_dkafk"]
 [ext_resource type="Texture2D" uid="uid://dif6ddsu0qwgv" path="res://textures/snow_02_ao_1k.png" id="10_lbkrt"]
-[ext_resource type="Script" path="res://UI/time.gd" id="10_o5q3c"]
 [ext_resource type="Script" path="res://day_night_cycle.gd" id="10_oj47v"]
 [ext_resource type="Texture2D" uid="uid://cnfnhabxrahh6" path="res://textures/snow_02_diff_4k.jpg" id="10_u4fgp"]
 [ext_resource type="Texture2D" uid="uid://nv8dtcaivfry" path="res://textures/snow_02_disp_4k.png" id="10_xk3qk"]
@@ -118,16 +116,10 @@ glow_enabled = true
 fog_mode = 1
 fog_density = 1.0
 
-[sub_resource type="LabelSettings" id="LabelSettings_10gan"]
-font_size = 41
-outline_size = 19
-outline_color = Color(0, 0, 0, 1)
-shadow_size = 12
-shadow_color = Color(0.862745, 0.862745, 0.862745, 0.223529)
-shadow_offset = Vector2(8.725, 7.33)
-
 [node name="World" type="Node3D"]
 script = ExtResource("1_mq7nw")
+
+[node name="UI" parent="." instance=ExtResource("2_u2p08")]
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 visible = false
@@ -239,59 +231,3 @@ transform = Transform3D(0.802994, 0, -0.595987, 0, 1, 0, 0.595987, 0, 0.802994, 
 
 [node name="WindTurbine3" parent="." instance=ExtResource("21_dmvmb")]
 transform = Transform3D(0.802994, 0, -0.595987, 0, 1, 0, 0.595987, 0, 0.802994, -29.138, 12.7136, 103.344)
-
-[node name="UI" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="InteractionLabel" type="Label" parent="UI"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -23.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "Press E to interact"
-label_settings = SubResource("LabelSettings_10gan")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="CenterContainer" type="CenterContainer" parent="UI"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("8_1c6tg")
-
-[node name="Debug" type="Control" parent="UI"]
-layout_mode = 1
-anchors_preset = 0
-offset_right = 112.0
-offset_bottom = 233.0
-
-[node name="FPS" type="Label" parent="UI/Debug"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-script = ExtResource("9_400c4")
-
-[node name="Time" type="Label" parent="UI/Debug"]
-layout_mode = 0
-offset_top = 23.0
-offset_right = 40.0
-offset_bottom = 46.0
-script = ExtResource("10_o5q3c")
