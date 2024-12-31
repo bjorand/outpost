@@ -6,6 +6,9 @@ extends Node3D
 
 func reset():
 	print("Computer reset asked")
+	
+func shutdown():
+	print("Computer shutdown in progress")
 
 var input_buffer: String = ""
 

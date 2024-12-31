@@ -17,6 +17,10 @@ func get_interactions():
 			{
 				"text": "Reset computer",
 				"fn": computer_node.reset,
+			},
+			{
+				"text": "Shutdown computer",
+				"fn": computer_node.shutdown,
 			}
 		]
 	}

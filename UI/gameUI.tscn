@@ -20,6 +20,10 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 1.0
+offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -41,7 +45,7 @@ theme = ExtResource("1_quhxw")
 [node name="InteractionLabel" type="Label" parent="InteractionPanelContainer"]
 layout_mode = 2
 theme = ExtResource("1_y8ade")
-text = "Sample interaction"
+text = "Sample i"
 label_settings = SubResource("LabelSettings_m55xt")
 vertical_alignment = 1
 
@@ -85,11 +89,6 @@ text = "Sample interaction
 Third interaction"
 label_settings = SubResource("LabelSettings_k13b3")
 vertical_alignment = 1
-
-[node name="MoreIndicator" type="Polygon2D" parent="MorePanelContainer"]
-position = Vector2(-65.4515, -17.5786)
-scale = Vector2(0.910813, 0.399691)
-polygon = PackedVector2Array(8.18109, 33.9729, 29.0416, 68.9999, 39.3246, 52.2594, 44.7456, 44.2456, 51, 33.9729, 43.3145, 33.9729, 29.0416, 58.9922, 13.6707, 33.9729)
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1

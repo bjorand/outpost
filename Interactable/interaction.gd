@@ -26,7 +26,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				# call the zoom function
 			# zoom out
 			if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-				if action_index < config.actions.size():
+				if action_index < (config.actions.size()-1):
 					action_index += 1
 					set_interactions()
 				# call the zoom function
@@ -67,8 +67,11 @@ func set_interactions():
 		#first_interaction_label.set_visible(true)
 		
 		var more = ""
-		for actions in config.actions.slice(1):
-			more += actions.text + "\n"
+		for action_id in config.actions.size():
+			var action = config.actions[action_id]
+			if action_index == action_id:
+				continue
+			more += action.text + "\n"
 		more_interaction_label.set_text(more)
 		if config.actions.size() > 1:
 			more_panel.set_visible(true)
