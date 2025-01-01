@@ -1,0 +1,60 @@
+[gd_scene load_steps=5 format=3 uid="uid://b55fvs4o3f4wc"]
+
+[ext_resource type="Script" path="res://scripts/inventory.gd" id="1_orre0"]
+[ext_resource type="Theme" uid="uid://bippmia8t4eu2" path="res://UI/inventory.tres" id="2_5febg"]
+[ext_resource type="Texture2D" uid="uid://cki185bakq2jp" path="res://textures/objects/floppy/open_source__caster_disks_by_amanacer_fiend0_ddtv016-375w-2x.png" id="3_wonh8"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_p5hmt"]
+font_size = 26
+
+[node name="Inventory" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_orre0")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_5febg")
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="BoxContainer" type="BoxContainer" parent="MarginContainer/PanelContainer"]
+layout_mode = 2
+vertical = true
+
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/BoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "INVENTORY"
+label_settings = SubResource("LabelSettings_p5hmt")
+horizontal_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/PanelContainer/BoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 10
+
+[node name="Item0" type="BoxContainer" parent="MarginContainer/PanelContainer/BoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+vertical = true
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/PanelContainer/BoxContainer/GridContainer/Item0"]
+layout_mode = 2
+texture = ExtResource("3_wonh8")
+
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/BoxContainer/GridContainer/Item0"]
+layout_mode = 2
+text = "item 1"

@@ -37,6 +37,9 @@ func _physics_process(delta):
 	move_and_slide()
 
 func _input(event):
+	if Input.is_action_just_pressed("Inventory"):
+		Inventory.show()
+		
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		rotate_y(-event.relative.x * mouse_sensitivity)
 		$Camera3D.rotate_x(-event.relative.y * mouse_sensitivity)

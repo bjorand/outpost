@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://brejjc7futkdn"]
+[gd_scene load_steps=32 format=3 uid="uid://brejjc7futkdn"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_mq7nw"]
 [ext_resource type="Script" path="res://CharacterBody3D.gd" id="2_jtq3m"]
@@ -18,7 +18,9 @@
 [ext_resource type="Texture2D" uid="uid://dcqo3adjstijb" path="res://textures/snow_02_rough_1k.png" id="14_tlrw0"]
 [ext_resource type="PackedScene" uid="uid://bp5iwf5uf3hk4" path="res://desklamp.tscn" id="16_js650"]
 [ext_resource type="Shader" path="res://sky.gdshader" id="19_2oy2g"]
+[ext_resource type="PackedScene" uid="uid://ydjmkx0jwo3" path="res://objects/floppy.tscn" id="20_0t26f"]
 [ext_resource type="PackedScene" uid="uid://b3f1da4m3d0xl" path="res://wind_turbine.tscn" id="21_dmvmb"]
+[ext_resource type="PackedScene" uid="uid://b55fvs4o3f4wc" path="res://UI/inventory.tscn" id="21_yl3ww"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_r52jj"]
 size = Vector3(1, 1, 4)
@@ -126,6 +128,7 @@ visible = false
 mesh = SubResource("BoxMesh_r52jj")
 
 [node name="Player" type="CharacterBody3D" parent="."]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.42903, 1.15384, 4.70094)
 script = ExtResource("2_jtq3m")
 
@@ -195,23 +198,23 @@ mesh = SubResource("PlaneMesh_mmm25")
 
 [node name="DayNightCycle" type="Node3D" parent="."]
 script = ExtResource("10_oj47v")
-day_time = 4.7452
+day_time = 10.8593
 time_scale = 0.6654
-sun_base_enegry = 0.99
+sun_base_enegry = 0.87
 moon_base_enegry = 1.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="DayNightCycle"]
 environment = SubResource("Environment_5ug4m")
 
 [node name="Moon" type="DirectionalLight3D" parent="DayNightCycle"]
-transform = Transform3D(0.956067, 0, -0.293148, 0.244627, -0.551037, 0.797818, -0.161536, -0.83448, -0.526828, 0, 0, 0)
+transform = Transform3D(0.99953, 0, -0.0306503, 0.0175082, 0.820794, 0.570954, 0.0251577, -0.571223, 0.820408, 0, 0, 0)
 rotation_order = 4
 shadow_enabled = true
 
 [node name="Sun" type="DirectionalLight3D" parent="DayNightCycle"]
-transform = Transform3D(0.920734, 0, -0.390191, -0.125887, 0.946525, -0.297056, 0.369325, 0.322629, 0.871499, 0, 0, 0)
+transform = Transform3D(0.920875, 0, -0.389857, 0.372601, 0.294216, 0.880117, 0.114702, -0.955739, 0.270936, 0, 0, 0)
 rotation_order = 4
-light_energy = 0.0
+light_energy = 0.87
 light_bake_mode = 1
 shadow_enabled = true
 
@@ -231,3 +234,8 @@ transform = Transform3D(0.802994, 0, -0.595987, 0, 1, 0, 0.595987, 0, 0.802994, 
 
 [node name="WindTurbine3" parent="." instance=ExtResource("21_dmvmb")]
 transform = Transform3D(0.802994, 0, -0.595987, 0, 1, 0, 0.595987, 0, 0.802994, -29.138, 12.7136, 103.344)
+
+[node name="Floppy" parent="." instance=ExtResource("20_0t26f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.73664, 0.873207, 3.3099)
+
+[node name="Inventory" parent="." instance=ExtResource("21_yl3ww")]

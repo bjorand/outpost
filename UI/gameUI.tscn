@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://k8d8hssuxdhm"]
+[gd_scene load_steps=10 format=3 uid="uid://k8d8hssuxdhm"]
 
 [ext_resource type="Theme" uid="uid://dtdmnqoamyhux" path="res://UI/interaction.tres" id="1_quhxw"]
 [ext_resource type="Theme" uid="uid://dn4wle0foeno2" path="res://UI/interactionKey.tres" id="1_y8ade"]
 [ext_resource type="Script" path="res://UI/reticle.gd" id="2_2ou4i"]
 [ext_resource type="Script" path="res://UI/fps.gd" id="3_f8kgk"]
 [ext_resource type="Script" path="res://UI/time.gd" id="4_trk4d"]
+[ext_resource type="Script" path="res://UI/debug/inventory.gd" id="6_se1jb"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_m55xt"]
 font_size = 41
@@ -108,8 +109,8 @@ script = ExtResource("2_2ou4i")
 [node name="Debug" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 0
-offset_right = 112.0
-offset_bottom = 233.0
+offset_right = 101.0
+offset_bottom = 82.0
 
 [node name="FPS" type="Label" parent="Debug"]
 layout_mode = 0
@@ -125,3 +126,12 @@ offset_right = 40.0
 offset_bottom = 46.0
 text = "12:00:00"
 script = ExtResource("4_trk4d")
+
+[node name="Inventory" type="Label" parent="Debug"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 49.0
+offset_right = 65.0
+offset_bottom = 72.0
+text = "inventory"
+script = ExtResource("6_se1jb")

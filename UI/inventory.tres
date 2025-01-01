@@ -1,0 +1,11 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://bippmia8t4eu2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wgqy3"]
+bg_color = Color(0, 0, 0, 0.290196)
+
+[resource]
+MarginContainer/constants/margin_bottom = 55
+MarginContainer/constants/margin_left = 27
+MarginContainer/constants/margin_right = 26
+MarginContainer/constants/margin_top = 38
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_wgqy3")

@@ -7,7 +7,7 @@ extends Interactable
 @onready var fullscreen = false
 
 func get_interactions():
-	return {
+	var actions = {
 		"key": "E",
 		"actions": [
 			{
@@ -24,6 +24,8 @@ func get_interactions():
 			}
 		]
 	}
+	
+	return actions
 
 func _ready():
 	pass

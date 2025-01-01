@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://ydjmkx0jwo3"]
+
+[ext_resource type="Script" path="res://Interactable/InteractableFloppy.gd" id="1_c45yq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cbfrg"]
+size = Vector3(0.1, 0.1, 0.01)
+
+[sub_resource type="BoxMesh" id="BoxMesh_danq1"]
+size = Vector3(0.1, 0.1, 0.01)
+
+[node name="Floppy" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+
+[node name="RigidBody3D" type="StaticBody3D" parent="."]
+script = ExtResource("1_c45yq")
+floppy = NodePath("..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("BoxShape3D_cbfrg")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D/CollisionShape3D"]
+mesh = SubResource("BoxMesh_danq1")
+skeleton = NodePath("../../..")
+
+[node name="Label3D" type="Label3D" parent="RigidBody3D/CollisionShape3D/MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0294786, 0.00572465)
+pixel_size = 0.0006
+modulate = Color(0, 0, 0, 1)
+text = "Floppyy 1"
+font_size = 22
+outline_size = 0
