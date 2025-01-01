@@ -158,18 +158,6 @@ light_energy = 2.107
 shadow_enabled = true
 shadow_blur = 2.845
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
-z_index = 2
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
 [node name="Computer" parent="." instance=ExtResource("5_rf7j2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.60836, 0.747397, 3.58368)
 
@@ -212,7 +200,7 @@ rotation_order = 4
 shadow_enabled = true
 
 [node name="Sun" type="DirectionalLight3D" parent="DayNightCycle"]
-transform = Transform3D(0.920875, 0, -0.389857, 0.372601, 0.294216, 0.880117, 0.114702, -0.955739, 0.270936, 0, 0, 0)
+transform = Transform3D(0.920875, 0, -0.389857, 0.372601, 0.294215, 0.880117, 0.114702, -0.955739, 0.270936, 0, 0, 0)
 rotation_order = 4
 light_energy = 0.87
 light_bake_mode = 1
