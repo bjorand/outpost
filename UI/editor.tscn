@@ -39,5 +39,4 @@ metadata/_tab_index = 0
 visible = false
 layout_mode = 2
 text = "EDITOR"
-delimiter_strings = Array[String](["\" \"", "' '"])
 metadata/_tab_index = 1

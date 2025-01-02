@@ -28,6 +28,7 @@ emission_on_uv2 = true
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_vt8sv"]
 resource_local_to_scene = true
+lightmap_size_hint = Vector2i(4, 4)
 material = SubResource("StandardMaterial3D_g3cyl")
 size = Vector2(0.43, 0.42)
 
@@ -55,9 +56,9 @@ disable_3d = true
 use_hdr_2d = true
 
 [node name="Editor" parent="SubViewport" instance=ExtResource("6_nmgpk")]
+visible = false
 
 [node name="Shell" parent="SubViewport" instance=ExtResource("4_04tt1")]
-visible = false
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

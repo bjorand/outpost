@@ -1,8 +1,9 @@
-[gd_scene load_steps=32 format=3 uid="uid://brejjc7futkdn"]
+[gd_scene load_steps=35 format=3 uid="uid://brejjc7futkdn"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_mq7nw"]
 [ext_resource type="Script" path="res://CharacterBody3D.gd" id="2_jtq3m"]
 [ext_resource type="PackedScene" uid="uid://k8d8hssuxdhm" path="res://UI/gameUI.tscn" id="2_u2p08"]
+[ext_resource type="Script" path="res://Interactable/Pickable.gd" id="3_btert"]
 [ext_resource type="Script" path="res://Interactable/interaction.gd" id="4_6wkjo"]
 [ext_resource type="PackedScene" uid="uid://c20jdo6377klh" path="res://computer.tscn" id="5_rf7j2"]
 [ext_resource type="PackedScene" uid="uid://dt8xi0gfaxfyj" path="res://room_col.tscn" id="6_hosle"]
@@ -22,8 +23,9 @@
 [ext_resource type="PackedScene" uid="uid://b3f1da4m3d0xl" path="res://wind_turbine.tscn" id="21_dmvmb"]
 [ext_resource type="PackedScene" uid="uid://b55fvs4o3f4wc" path="res://UI/inventory.tscn" id="21_yl3ww"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_1p36w"]
+
 [sub_resource type="BoxMesh" id="BoxMesh_r52jj"]
-size = Vector3(1, 1, 4)
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_5p6yr"]
 height = 1.8
@@ -69,6 +71,9 @@ material = SubResource("StandardMaterial3D_gpktq")
 add_uv2 = true
 uv2_padding = 3.94
 size = Vector2(100, 200)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_p83yp"]
+size = Vector3(100, 0.1, 200)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6fg3j"]
 shader = ExtResource("19_2oy2g")
@@ -123,19 +128,26 @@ script = ExtResource("1_mq7nw")
 
 [node name="UI" parent="." instance=ExtResource("2_u2p08")]
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-visible = false
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.575887, 4.11829)
+script = ExtResource("3_btert")
+pickup_distance = Vector3(0, 0, -2.78)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("BoxShape3D_1p36w")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="RigidBody3D/CollisionShape3D"]
 mesh = SubResource("BoxMesh_r52jj")
+skeleton = NodePath("../../..")
 
 [node name="Player" type="CharacterBody3D" parent="."]
-unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.42903, 1.15384, 4.70094)
 script = ExtResource("2_jtq3m")
 
 [node name="Camera3D" type="Camera3D" parent="Player"]
 
 [node name="InteractionRayCast3D" type="RayCast3D" parent="Player/Camera3D"]
-target_position = Vector3(0, 0, -1)
+target_position = Vector3(0, 0, -1.225)
 collision_mask = 3
 script = ExtResource("4_6wkjo")
 
@@ -184,6 +196,11 @@ mesh = SubResource("BoxMesh_c56xq")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.487961, 99.3794)
 mesh = SubResource("PlaneMesh_mmm25")
 
+[node name="StaticBody3D" type="StaticBody3D" parent="ground"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ground/StaticBody3D"]
+shape = SubResource("BoxShape3D_p83yp")
+
 [node name="DayNightCycle" type="Node3D" parent="."]
 script = ExtResource("10_oj47v")
 day_time = 10.8593
@@ -195,12 +212,12 @@ moon_base_enegry = 1.0
 environment = SubResource("Environment_5ug4m")
 
 [node name="Moon" type="DirectionalLight3D" parent="DayNightCycle"]
-transform = Transform3D(0.99953, 0, -0.0306503, 0.0175082, 0.820794, 0.570954, 0.0251577, -0.571223, 0.820408, 0, 0, 0)
+transform = Transform3D(0.99953, 0, -0.0306503, 0.0175082, 0.820794, 0.570954, 0.0251576, -0.571223, 0.820408, 0, 0, 0)
 rotation_order = 4
 shadow_enabled = true
 
 [node name="Sun" type="DirectionalLight3D" parent="DayNightCycle"]
-transform = Transform3D(0.920875, 0, -0.389857, 0.372601, 0.294215, 0.880117, 0.114702, -0.955739, 0.270936, 0, 0, 0)
+transform = Transform3D(0.920875, 0, -0.389857, 0.372601, 0.294215, 0.880117, 0.114702, -0.955738, 0.270936, 0, 0, 0)
 rotation_order = 4
 light_energy = 0.87
 light_bake_mode = 1
@@ -211,6 +228,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.09573, 34.7139)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8493, 2.52546)
+visible = false
 light_color = Color(1, 0, 1, 1)
 light_energy = 8.524
 

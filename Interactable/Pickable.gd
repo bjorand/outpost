@@ -20,11 +20,19 @@ func take():
 func drop():
 	picked_up = false
 	#object.freeze = false
-	
+
 func get_interactions():
-	pass
+	return {
+		"key": "E",
+		"actions": [
+			{
+				"text": "Take" if not picked_up else "Drop",
+				"fn": take if not picked_up else drop,
+			},
+		]
+	}
 	
 func _physics_process(delta: float) -> void:
 	if picked_up:
 		var camera_transform = camera.global_transform
-		object.global_transform = object.global_transform.interpolate_with(camera_transform.translated_local(pickup_distance), pickup_lerp)
+		self.global_transform = self.global_transform.interpolate_with(camera_transform.translated_local(pickup_distance), pickup_lerp)
